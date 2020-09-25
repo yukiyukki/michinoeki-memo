@@ -7,7 +7,7 @@ const client = new ApolloClient({
   link: PrismicLink({
     uri: apiConfig.uri,
   }),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 export default client;

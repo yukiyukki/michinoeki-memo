@@ -1,10 +1,9 @@
-import React from "react";
-import NextApp, { AppProps } from "next/app";
-import {
-  RecoilRoot,
-} from 'recoil';
+import React from 'react';
+import NextApp, { AppProps } from 'next/app';
+import { AppStylesProvider } from '../styles/AppStylesProvider';
+import { RecoilRoot } from 'recoil';
 
-interface Props extends AppProps {}
+type Props = AppProps;
 
 class App extends NextApp {
   constructor(props: Props) {
@@ -16,7 +15,9 @@ class App extends NextApp {
 
     return (
       <RecoilRoot>
-        <Component {...pageProps} />
+        <AppStylesProvider>
+          <Component {...pageProps} />
+        </AppStylesProvider>
       </RecoilRoot>
     );
   }

@@ -3,7 +3,7 @@ interface APIConfig {
 }
 
 class Configuration {
-  constructor(private config: APIConfig) { }
+  constructor(private config: APIConfig) {}
 
   get uri() {
     return this.config.uri;
