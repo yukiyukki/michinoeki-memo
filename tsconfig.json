@@ -6,12 +6,19 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "jsx": "react",
+    "jsx": "preserve",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
-    ]
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "moduleResolution": "node",
+    "isolatedModules": true
   },
   "exclude": [
     "node_modules"

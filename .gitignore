@@ -2,6 +2,14 @@
 node_modules
 .env
 
+# Nextjs
+/.next/
+/out/
+
+# misc
+.DS_Store
+.env
+
 # Build assets
 public/build
 public/index.html
