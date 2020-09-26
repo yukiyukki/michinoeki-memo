@@ -107,9 +107,7 @@ const IndexPage: React.FC = () => {
       </Container>
       <Footer fixed>
         <Typography align="center">
-          <NextLink href="https://lanieve.jp/">
-            <Link>lanieve.jp</Link>
-          </NextLink>
+          <Link href="https://lanieve.jp/">lanieve.jp</Link>
         </Typography>
       </Footer>
     </>

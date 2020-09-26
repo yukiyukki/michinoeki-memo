@@ -107,9 +107,9 @@ const ReportDetail: React.FC = () => {
     {
       title: '公式サイト',
       content: (
-        <NextLink href={website.url}>
-          <Link>{website.url}</Link>
-        </NextLink>
+        <Link href={website.url} target="_blank" rel="noopener">
+          {website.url}
+        </Link>
       ),
     },
     {
