@@ -29,6 +29,5 @@
     "src/types/*.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
-  "compileOnSave": false
+  ]
 }
