@@ -17,16 +17,19 @@
     "prettier": "prettier './src/**/**.{ts,tsx}'",
     "prettier:fix": "npm run prettier -- --write",
     "eslint": "eslint 'src/**/*.{ts,tsx}' --cache",
-    "eslint:fix": "npm run eslint -- --fix"
+    "eslint:fix": "npm run eslint -- --fix",
+    "codegen": "apollo client:codegen --target=typescript --queries='src/**/*.tsx' --localSchemaFile=./prismic.graphql"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
     "apollo-link-prismic": "^1.0.8",
+    "dayjs": "^1.8.36",
     "graphql": "^15.3.0",
     "graphql-tag": "^2.11.0",
     "next": "^9.5.3",
+    "prismic-reactjs": "^1.3.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "recoil": "^0.0.13"
@@ -37,11 +40,14 @@
     "@types/react-dom": "^16.9.8",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
+    "apollo": "^2.31.0",
+    "dotenv": "^8.2.0",
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.2",
     "husky": "^4.3.0",
+    "isomorphic-unfetch": "^3.0.0",
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
     "typescript": "^4.0.3"

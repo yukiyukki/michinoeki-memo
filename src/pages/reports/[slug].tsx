@@ -4,7 +4,7 @@ import { ReportDetail } from '../../components/ReportDetail';
 import { Container } from '@material-ui/core';
 
 const ReportIndex: NextPage = () => (
-  <Container maxWidth="sm">
+  <Container maxWidth="md">
     <ReportDetail />
   </Container>
 );
