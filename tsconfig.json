@@ -21,7 +21,8 @@
     "isolatedModules": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "__generated__/globalTypes.ts"
   ],
   "include": [
     "next-env.d.ts",

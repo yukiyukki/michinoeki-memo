@@ -10,7 +10,6 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
-    "postbuild": "rm .next/static/**/*.map",
     "start": "next start",
     "type-check": "tsc",
     "fix": "npm run prettier:fix && npm run eslint:fix",
