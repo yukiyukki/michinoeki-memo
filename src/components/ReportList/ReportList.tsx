@@ -28,6 +28,7 @@ const ReportList: React.FC<Props> = ({ reports }) => {
                   <Link>{report.node.place_name[0].text}</Link>
                 </NextLink>
               </TableCell>
+              <TableCell>{report.node.description[0].prefecture}</TableCell>
               <TableCell>
                 更新日: {lastUpdated.format('YYYY/M/D(ddd)')}
               </TableCell>
