@@ -86,7 +86,7 @@ const IndexPage: React.FC = () => {
 
   return (
     <>
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" style={{ paddingBottom: '120px' }}>
         <HeadTypography variant="h2" align="center">
           soriの道の駅メモ
         </HeadTypography>
