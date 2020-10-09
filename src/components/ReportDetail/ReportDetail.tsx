@@ -141,7 +141,7 @@ const ReportDetail: React.FC = () => {
       content: (
         <>
           {desc.memorial_ticket}
-          {desc.ticket_image.url && (
+          {desc.ticket_image && desc.ticket_image.url && (
             <>
               <br />
               <img
