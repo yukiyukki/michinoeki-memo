@@ -28,6 +28,11 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
+          <title>soriの道の駅メモ</title>
+          <meta
+            name="description"
+            content="soriが訪問した道の駅のレポート。及び訪問した道の駅の情報をまとめたサイト。"
+          />
         </Head>
         <body style={{ margin: 0 }}>
           <Main />
