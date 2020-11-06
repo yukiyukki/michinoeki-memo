@@ -23,6 +23,8 @@ import {
 } from './__generated__/getReportArticle';
 import { RichText } from 'prismic-reactjs';
 import { theme } from '../../styles/theme';
+import Image from 'next/image';
+import styles from './style.module.scss';
 
 const HeadTypography = styled(Typography)({
   marginTop: '20px',
@@ -144,12 +146,19 @@ const ReportDetail: React.FC = () => {
           {desc.ticket_image && desc.ticket_image.url && (
             <>
               <br />
-              <img
-                src={desc.ticket_image.url}
+              <div
                 style={{
+                  position: 'relative',
                   width: '320px',
+                  height: '200px',
                 }}
-              />
+              >
+                <Image
+                  src={desc.ticket_image.url}
+                  layout="fill"
+                  className={styles.objectFitContain}
+                />
+              </div>
             </>
           )}
         </>
@@ -168,15 +177,20 @@ const ReportDetail: React.FC = () => {
 
   return (
     <>
-      <img
-        src={report.cover_picture.url}
-        alt={report.cover_picture.alt}
+      <div
         style={{
+          position: 'relative',
           width: '100%',
           height: '240px',
-          objectFit: 'cover',
         }}
-      />
+      >
+        <Image
+          src={report.cover_picture.url}
+          alt={report.cover_picture.alt}
+          className={styles.objectFitCover}
+          layout="fill"
+        />
+      </div>
       <HeadTypography variant="h3" align="left">
         {report.place_name[0].text}
       </HeadTypography>
