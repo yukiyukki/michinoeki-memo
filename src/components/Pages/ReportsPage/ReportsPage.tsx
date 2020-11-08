@@ -29,7 +29,7 @@ const ReportsPage: React.FC = () => {
     return await apiClient.query({
       query: gql`
         query getReports {
-          allReports(sortBy: meta_lastPublicationDate_DESC) {
+          allReports(first: 300, sortBy: meta_lastPublicationDate_DESC) {
             edges {
               node {
                 place_name
