@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Table, TableBody, TableRow, TableCell, Link } from '@material-ui/core';
 import NextLink from 'next/link';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { Date as ParseDate } from 'prismic-reactjs';
 
 interface Props {
