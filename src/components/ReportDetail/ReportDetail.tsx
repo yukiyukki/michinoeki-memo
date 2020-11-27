@@ -24,7 +24,6 @@ import {
 import { RichText } from 'prismic-reactjs';
 import { theme } from '../../styles/theme';
 import Image from 'next/image';
-import styles from './style.module.scss';
 
 const HeadTypography = styled(Typography)({
   marginTop: '20px',
@@ -156,7 +155,7 @@ const ReportDetail: React.FC = () => {
                 <Image
                   src={desc.ticket_image.url}
                   layout="fill"
-                  className={styles.objectFitContain}
+                  objectFit="contain"
                 />
               </div>
             </>
@@ -177,20 +176,22 @@ const ReportDetail: React.FC = () => {
 
   return (
     <>
-      <div
-        style={{
-          position: 'relative',
-          width: '100%',
-          height: '240px',
-        }}
-      >
-        <Image
-          src={report.cover_picture.url}
-          alt={report.cover_picture.alt}
-          className={styles.objectFitCover}
-          layout="fill"
-        />
-      </div>
+      {report.cover_picture && report.cover_picture.url && (
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '240px',
+          }}
+        >
+          <Image
+            src={report.cover_picture.url}
+            alt={report.cover_picture.alt}
+            objectFit="cover"
+            layout="fill"
+          />
+        </div>
+      )}
       <HeadTypography variant="h3" align="left">
         {report.place_name[0].text}
       </HeadTypography>
