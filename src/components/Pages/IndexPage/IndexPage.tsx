@@ -126,6 +126,7 @@ const IndexPage: React.FC = () => {
                 '長崎県',
                 '宮崎県',
                 '鹿児島県',
+                '沖縄県',
               ].map((pref, idx) => (
                 <NextLink key={idx} href={`/reports/prefs/${pref}`}>
                   <LinkSpan>{pref}</LinkSpan>
