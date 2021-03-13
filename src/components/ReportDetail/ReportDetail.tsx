@@ -5,14 +5,11 @@ import {
   Divider,
   Typography,
   CircularProgress,
-  Table,
-  TableBody,
-  TableRow,
-  TableCell,
   Link,
+  Grid,
 } from '@material-ui/core';
 import NextLink from 'next/link';
-import { styled } from '@material-ui/core/styles';
+import styled from 'styled-components';
 import apiClient from '../../apiClients/apiClient';
 import gql from 'graphql-tag';
 import { ApolloQueryResult } from 'apollo-client';
@@ -21,19 +18,105 @@ import {
   getReportArticle,
   getReportArticle_allReports_edges_node_description_website__ExternalLink,
 } from './__generated__/getReportArticle';
-import { RichText } from 'prismic-reactjs';
+import { RichText, Elements } from 'prismic-reactjs';
 import { theme } from '../../styles/theme';
 import Image from 'next/image';
 
-const HeadTypography = styled(Typography)({
-  marginTop: '20px',
-});
+const MainContainer = styled(Grid)`
+  padding: 0 12px;
+  @media screen and (min-width: 768px) {
+    padding: 0 40px;
+  }
+`;
 
-const LinkTypography = styled(HeadTypography)({
-  color: theme.palette.primary.dark,
-  textDecoration: 'underline',
-  cursor: 'pointer',
-});
+const HeadTypography = styled(Typography)`
+  margin-top: 20px;
+  font-size: 36px;
+  font-weight: bold;
+  color: #323ab1;
+`;
+
+const PrefTypography = styled(Typography)`
+  margin-left: 2px;
+  font-size: 24px;
+`;
+
+const SubHeadTypography = styled(Typography)`
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: bold;
+`;
+
+const LinkTypography = styled(Typography)`
+  margin-top: 20px;
+  font-size: 16px;
+  color: ${theme.palette.primary.dark};
+  text-decoration: underline;
+  cursor: pointer;
+`;
+
+const BreadCrumb = styled(Typography)`
+  margin-top: 20px;
+  font-size: 14px;
+  color: ${theme.palette.primary.dark};
+  text-decoration: underline;
+  cursor: pointer;
+`;
+
+const BreadCrumbCurrent = styled(Typography)`
+  margin-top: 20px;
+  font-size: 14px;
+  color: ${theme.palette.primary.dark};
+`;
+
+const MainContents = styled(Grid)``;
+
+const MainRichText = styled(RichText)``;
+
+const MainTypography = styled(Typography)`
+  font-size: 14px;
+  margin: 10px 0;
+`;
+
+const ContentsImageArea = styled(Grid)`
+  position: relative;
+`;
+
+const DescTable = styled(Grid)`
+  margin-top: 10px;
+  font-size: 14px;
+`;
+
+const DescTr = styled(Grid)`
+  border-top: 1px solid #ccc;
+  word-wrap: break-word;
+`;
+
+const DescTd = styled(Grid)`
+  padding: 4px 2px;
+`;
+
+const htmlSerializer = (
+  type: React.ElementType,
+  element: any,
+  _content: string,
+  children: React.ReactNode[],
+  _key: string,
+) => {
+  switch (type) {
+    case Elements.image:
+      return (
+        <ContentsImageArea>
+          <Image src={element.url} alt={element.alt} width={640} height={480} />
+        </ContentsImageArea>
+      );
+
+    case Elements.paragraph:
+      return <MainTypography>{children}</MainTypography>;
+    default:
+      return null;
+  }
+};
 
 const ReportDetail: React.FC = () => {
   const router = useRouter();
@@ -97,7 +180,16 @@ const ReportDetail: React.FC = () => {
   }, [router.query]);
 
   if (article === null || article.allReports.edges.length === 0) {
-    return <CircularProgress />;
+    return (
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        style={{ height: '100vh' }}
+      >
+        <CircularProgress />
+      </Grid>
+    );
   }
 
   const report = article.allReports.edges[0].node;
@@ -148,14 +240,16 @@ const ReportDetail: React.FC = () => {
               <div
                 style={{
                   position: 'relative',
-                  width: '320px',
+                  width: '100%',
                   height: '200px',
+                  marginTop: '10px',
                 }}
               >
                 <Image
                   src={desc.ticket_image.url}
                   layout="fill"
                   objectFit="contain"
+                  objectPosition="left"
                 />
               </div>
             </>
@@ -175,7 +269,7 @@ const ReportDetail: React.FC = () => {
   };
 
   return (
-    <>
+    <Grid>
       {report.cover_picture && report.cover_picture.url && (
         <div
           style={{
@@ -192,40 +286,81 @@ const ReportDetail: React.FC = () => {
           />
         </div>
       )}
-      <HeadTypography variant="h3" align="left">
-        {report.place_name[0].text}
-      </HeadTypography>
-      <LinkTypography variant="caption" onClick={handleClick}>
-        概要を見る
-      </LinkTypography>
-      <RichText render={report.contents} />
-      <HeadTypography variant="h5" innerRef={descHeader}>
-        概要
-      </HeadTypography>
-      <Table>
-        <TableBody>
+      <MainContainer>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="baseline"
+        >
+          <BreadCrumb variant="body1">
+            <NextLink href="/">
+              <Link>トップページ&nbsp;&gt;</Link>
+            </NextLink>
+          </BreadCrumb>
+          <BreadCrumb variant="body1" style={{ marginLeft: '10px' }}>
+            <NextLink href="/reports">
+              <Link>道の駅レポート&nbsp;&gt;</Link>
+            </NextLink>
+          </BreadCrumb>
+          <BreadCrumbCurrent variant="body1" style={{ marginLeft: '10px' }}>
+            {report.place_name[0].text}
+          </BreadCrumbCurrent>
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="baseline"
+        >
+          <HeadTypography variant="h3" align="left">
+            {report.place_name[0].text}
+          </HeadTypography>
+          <PrefTypography>
+            （{report.description[0].prefecture}）
+          </PrefTypography>
+        </Grid>
+        <LinkTypography variant="caption" onClick={handleClick}>
+          道の駅の概要を見る &gt;&gt;
+        </LinkTypography>
+        <MainContents>
+          <MainRichText
+            render={report.contents}
+            htmlSerializer={htmlSerializer}
+          />
+        </MainContents>
+        <SubHeadTypography variant="h5" innerRef={descHeader}>
+          - 概要 -
+        </SubHeadTypography>
+        <DescTable>
           {rows.map((row, index) => (
-            <TableRow key={index}>
-              <TableCell>{row.title}</TableCell>
-              <TableCell>{row.content}</TableCell>
-            </TableRow>
+            <DescTr
+              key={index}
+              container
+              direction="row"
+              justify="flex-start"
+              alignItems="center"
+            >
+              <DescTd xs={2}>{row.title}</DescTd>
+              <DescTd xs={9}>{row.content}</DescTd>
+            </DescTr>
           ))}
-        </TableBody>
-      </Table>
+        </DescTable>
 
-      <Divider />
+        <Divider />
 
-      <HeadTypography variant="body1">
-        <NextLink href="/reports">
-          <Link>一覧へ戻る</Link>
-        </NextLink>
-      </HeadTypography>
-      <HeadTypography variant="body1">
-        <NextLink href="/">
-          <Link>トップページ</Link>
-        </NextLink>
-      </HeadTypography>
-    </>
+        <LinkTypography variant="body1">
+          <NextLink href="/reports">
+            <Link>一覧へ戻る</Link>
+          </NextLink>
+        </LinkTypography>
+        <LinkTypography variant="body1">
+          <NextLink href="/">
+            <Link>トップページ</Link>
+          </NextLink>
+        </LinkTypography>
+      </MainContainer>
+    </Grid>
   );
 };
 

@@ -5,9 +5,9 @@ import {
   Typography,
   CircularProgress,
   Link,
+  Grid,
 } from '@material-ui/core';
 import NextLink from 'next/link';
-import Error from 'next/error';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { styled } from '@material-ui/core/styles';
@@ -54,7 +54,16 @@ const PrefsPage: React.FC = () => {
   }, [pref]);
 
   if (loading || reports === null) {
-    return <CircularProgress />;
+    return (
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        style={{ height: '100vh' }}
+      >
+        <CircularProgress />
+      </Grid>
+    );
   }
 
   return (

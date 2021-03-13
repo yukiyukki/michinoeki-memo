@@ -5,6 +5,7 @@ import {
   Typography,
   CircularProgress,
   Link,
+  Grid,
 } from '@material-ui/core';
 import NextLink from 'next/link';
 import { useEffect, useState } from 'react';
@@ -16,8 +17,10 @@ import { getReports } from './__generated__/getReports';
 import { ReportList } from '../../ReportList';
 
 const TitleTypography = styled(Typography)({
-  marginTop: '80px',
-  marginBottom: '40px',
+  marginTop: '40px',
+  marginBottom: '20px',
+  fontSize: '32px',
+  fontWeight: 'bold',
 });
 const HeadTypography = styled(Typography)({
   marginTop: '40px',
@@ -59,13 +62,22 @@ const ReportsPage: React.FC = () => {
   }, []);
 
   if (reports === null || reports.allReports.edges.length === 0) {
-    return <CircularProgress />;
+    return (
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        style={{ height: '100vh' }}
+      >
+        <CircularProgress />
+      </Grid>
+    );
   }
 
   return (
     <Container maxWidth="sm">
       <TitleTypography variant="h3" align="center">
-        レポート一覧
+        すべてのレポート
       </TitleTypography>
       <Divider />
       <ReportList reports={reports.allReports.edges} />
