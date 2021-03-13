@@ -21,6 +21,7 @@ import {
 import { RichText, Elements } from 'prismic-reactjs';
 import { theme } from '../../styles/theme';
 import Image from 'next/image';
+import Head from 'next/head';
 
 const MainContainer = styled(Grid)`
   padding: 0 12px;
@@ -270,6 +271,15 @@ const ReportDetail: React.FC = () => {
 
   return (
     <Grid>
+      <Head>
+        <meta
+          property="og:title"
+          content={`soriの道の駅メモ - ${report.place_name[0].text}のレポート`}
+        />
+        {report.cover_picture && (
+          <meta property="og:image" content={report.cover_picture.url} />
+        )}
+      </Head>
       {report.cover_picture && report.cover_picture.url && (
         <div
           style={{

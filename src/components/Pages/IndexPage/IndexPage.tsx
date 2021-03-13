@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Container,
-  Divider,
   Typography,
   CircularProgress,
   Link,
@@ -16,6 +15,7 @@ import { ApolloQueryResult } from 'apollo-client';
 import { getRecentReports } from './__generated__/getRecentReports';
 import { ReportList } from '../../ReportList';
 import Image from 'next/image';
+import Head from 'next/head';
 
 const DescTypography = styled(Typography)`
   margin-top: 10px;
@@ -92,6 +92,13 @@ const IndexPage: React.FC = () => {
 
   return (
     <>
+      <Head>
+        <meta property="og:title" content={`soriの道の駅メモ`} />
+        <meta
+          property="og:image"
+          content="https://images.prismic.io/michinoeki/cb23068a-d0fb-427b-b8b8-d634278c81e2_michinoeki-title.png?auto=compress,format"
+        />
+      </Head>
       <Container maxWidth="md" style={{ paddingBottom: '120px' }}>
         <Image
           src="https://images.prismic.io/michinoeki/cb23068a-d0fb-427b-b8b8-d634278c81e2_michinoeki-title.png?auto=compress,format"
