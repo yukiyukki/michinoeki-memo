@@ -1,4 +1,5 @@
 import React from 'react';
+import { NextComponentType } from 'next';
 import {
   Container,
   Typography,
@@ -41,7 +42,7 @@ const LinkSpan = styled(Link)`
   margin-right: 10px;
 `;
 
-const IndexPage: React.FC = () => {
+const IndexPage: NextComponentType = () => {
   const fetchRecentReports = async (): Promise<
     ApolloQueryResult<getRecentReports>
   > => {
@@ -181,5 +182,11 @@ const IndexPage: React.FC = () => {
     </>
   );
 };
+
+/* todo
+IndexPage.getInitialProps = async ({ req, res, ...ctx }) => {
+
+};
+*/
 
 export { IndexPage };

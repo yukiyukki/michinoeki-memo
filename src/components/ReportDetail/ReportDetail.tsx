@@ -81,6 +81,8 @@ const MainTypography = styled(Typography)`
 
 const ContentsImageArea = styled(Grid)`
   position: relative;
+  max-width: 100%;
+  height: 24em;
 `;
 
 const DescTable = styled(Grid)`
@@ -107,8 +109,17 @@ const htmlSerializer = (
   switch (type) {
     case Elements.image:
       return (
-        <ContentsImageArea>
-          <Image src={element.url} alt={element.alt} width={640} height={480} />
+        <ContentsImageArea container justify="flex-start" alignItems="center">
+          <Image
+            src={element.url}
+            alt={element.alt}
+            layout="fill"
+            objectFit="contain"
+            objectPosition="left"
+          />
+          {element.alt && (
+            <Typography style={{ fontSize: '12px' }}>{element.alt}</Typography>
+          )}
         </ContentsImageArea>
       );
 
