@@ -42,7 +42,6 @@ const LinkSpan = styled(Link)`
 `;
 
 const IndexPage: React.FC<Props> = ({ recentReports }) => {
-  console.log(recentReports);
   if (recentReports.results_size === 0) {
     return (
       <Grid
@@ -62,6 +61,9 @@ const IndexPage: React.FC<Props> = ({ recentReports }) => {
     <>
       <Head>
         <title>soriの道の駅メモ</title>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@sori_ja" />
+        <meta name="twitter:creator" content="@sori_ja" />
         <meta property="og:title" content={`soriの道の駅メモ`} />
         <meta
           property="og:image"

@@ -224,6 +224,9 @@ const ReportDetail: React.FC<Props> = ({ detail }) => {
     <Grid>
       <Head>
         <title>{`soriの道の駅メモ - ${report.place_name[0].text}のレポート`}</title>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@sori_ja" />
+        <meta name="twitter:creator" content="@sori_ja" />
         <meta
           property="og:title"
           content={`soriの道の駅メモ - ${report.place_name[0].text}のレポート`}
