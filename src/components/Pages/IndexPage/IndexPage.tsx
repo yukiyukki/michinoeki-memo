@@ -1,5 +1,4 @@
 import React from 'react';
-import { NextComponentType } from 'next';
 import {
   Container,
   Typography,
@@ -8,15 +7,15 @@ import {
   Grid,
 } from '@material-ui/core';
 import NextLink from 'next/link';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import apiClient from '../../../apiClients/apiClient';
-import gql from 'graphql-tag';
-import { ApolloQueryResult } from 'apollo-client';
-import { getRecentReports } from './__generated__/getRecentReports';
-import { ReportList } from '../../ReportList';
 import Image from 'next/image';
 import Head from 'next/head';
+import ApiSearchResponse from 'prismic-javascript/types/ApiSearchResponse';
+import { ApiReportList } from '../../ApiReportList';
+
+interface Props {
+  recentReports: ApiSearchResponse;
+}
 
 const DescTypography = styled(Typography)`
   margin-top: 10px;
@@ -42,43 +41,9 @@ const LinkSpan = styled(Link)`
   margin-right: 10px;
 `;
 
-const IndexPage: NextComponentType = () => {
-  const fetchRecentReports = async (): Promise<
-    ApolloQueryResult<getRecentReports>
-  > => {
-    return await apiClient.query({
-      query: gql`
-        query getRecentReports {
-          allReports(sortBy: meta_lastPublicationDate_DESC, first: 5) {
-            edges {
-              node {
-                place_name
-                description {
-                  prefecture
-                  city
-                }
-                _meta {
-                  uid
-                  lastPublicationDate
-                }
-              }
-            }
-          }
-        }
-      `,
-    });
-  };
-
-  const [reports, setReports] = useState<getRecentReports>(null);
-
-  useEffect(() => {
-    (async () => {
-      const result = await fetchRecentReports();
-      setReports(result.data);
-    })();
-  }, []);
-
-  if (reports === null || reports.allReports.edges.length === 0) {
+const IndexPage: React.FC<Props> = ({ recentReports }) => {
+  console.log(recentReports);
+  if (recentReports.results_size === 0) {
     return (
       <Grid
         container
@@ -91,9 +56,12 @@ const IndexPage: NextComponentType = () => {
     );
   }
 
+  const reports = recentReports.results;
+
   return (
     <>
       <Head>
+        <title>soriの道の駅メモ</title>
         <meta property="og:title" content={`soriの道の駅メモ`} />
         <meta
           property="og:image"
@@ -120,7 +88,7 @@ const IndexPage: NextComponentType = () => {
               height={45}
               alt="最近のレポート"
             />
-            <ReportList reports={reports.allReports.edges} />
+            <ApiReportList reports={reports} />
           </Grid>
           <Grid item md={4}>
             <Image
@@ -182,11 +150,5 @@ const IndexPage: NextComponentType = () => {
     </>
   );
 };
-
-/* todo
-IndexPage.getInitialProps = async ({ req, res, ...ctx }) => {
-
-};
-*/
 
 export { IndexPage };

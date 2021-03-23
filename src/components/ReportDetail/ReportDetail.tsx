@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState, createRef } from 'react';
-import { useRouter } from 'next/router';
+import { createRef } from 'react';
 import {
   Divider,
   Typography,
@@ -10,18 +9,15 @@ import {
 } from '@material-ui/core';
 import NextLink from 'next/link';
 import styled from 'styled-components';
-import apiClient from '../../apiClients/apiClient';
-import gql from 'graphql-tag';
-import { ApolloQueryResult } from 'apollo-client';
-import {
-  getReportArticleVariables,
-  getReportArticle,
-  getReportArticle_allReports_edges_node_description_website__ExternalLink,
-} from './__generated__/getReportArticle';
 import { RichText, Elements } from 'prismic-reactjs';
 import { theme } from '../../styles/theme';
 import Image from 'next/image';
 import Head from 'next/head';
+import { Document } from 'prismic-javascript/types/documents';
+
+interface Props {
+  detail: Document | null;
+}
 
 const MainContainer = styled(Grid)`
   padding: 0 12px;
@@ -72,8 +68,6 @@ const BreadCrumbCurrent = styled(Typography)`
 
 const MainContents = styled(Grid)``;
 
-const MainRichText = styled(RichText)``;
-
 const MainTypography = styled(Typography)`
   font-size: 14px;
   margin: 10px 0;
@@ -104,12 +98,17 @@ const htmlSerializer = (
   element: any,
   _content: string,
   children: React.ReactNode[],
-  _key: string,
+  key: string,
 ) => {
   switch (type) {
     case Elements.image:
       return (
-        <ContentsImageArea container justify="flex-start" alignItems="center">
+        <ContentsImageArea
+          container
+          justify="flex-start"
+          alignItems="center"
+          key={key}
+        >
           <Image
             src={element.url}
             alt={element.alt}
@@ -124,74 +123,15 @@ const htmlSerializer = (
       );
 
     case Elements.paragraph:
-      return <MainTypography>{children}</MainTypography>;
+      return <MainTypography key={key}>{children}</MainTypography>;
     default:
       return null;
   }
 };
 
-const ReportDetail: React.FC = () => {
-  const router = useRouter();
+const ReportDetail: React.FC<Props> = ({ detail }) => {
   const descHeader = createRef<HTMLElement>();
-
-  const fetchReportArticle = async (
-    uid: string,
-  ): Promise<ApolloQueryResult<getReportArticle>> => {
-    const variables: getReportArticleVariables = {
-      uid,
-    };
-
-    return await apiClient.query({
-      query: gql`
-        query getReportArticle($uid: String!) {
-          allReports(uid: $uid) {
-            edges {
-              node {
-                place_name
-                cover_picture
-                contents
-                description {
-                  website {
-                    __typename
-                    ... on _ExternalLink {
-                      url
-                    }
-                  }
-                  ticket_image
-                  prefecture
-                  city
-                  address
-                  access
-                  open_time
-                  close_time
-                  facilities
-                  activities
-                  restroom
-                  memorial_ticket
-                  other
-                }
-              }
-            }
-          }
-        }
-      `,
-      variables,
-    });
-  };
-
-  const [article, setArticle] = useState<getReportArticle>(null);
-
-  useEffect(() => {
-    if (!router.query.slug) {
-      return;
-    }
-    (async () => {
-      const result = await fetchReportArticle(String(router.query.slug));
-      setArticle(result.data);
-    })();
-  }, [router.query]);
-
-  if (article === null || article.allReports.edges.length === 0) {
+  if (detail === null) {
     return (
       <Grid
         container
@@ -204,9 +144,9 @@ const ReportDetail: React.FC = () => {
     );
   }
 
-  const report = article.allReports.edges[0].node;
+  const report = detail.data;
   const desc = report.description[0];
-  const website = desc.website as getReportArticle_allReports_edges_node_description_website__ExternalLink;
+  const website = desc.website;
 
   const rows = [
     {
@@ -283,6 +223,7 @@ const ReportDetail: React.FC = () => {
   return (
     <Grid>
       <Head>
+        <title>{`soriの道の駅メモ - ${report.place_name[0].text}のレポート`}</title>
         <meta
           property="og:title"
           content={`soriの道の駅メモ - ${report.place_name[0].text}のレポート`}
@@ -337,18 +278,13 @@ const ReportDetail: React.FC = () => {
           <HeadTypography variant="h3" align="left">
             {report.place_name[0].text}
           </HeadTypography>
-          <PrefTypography>
-            （{report.description[0].prefecture}）
-          </PrefTypography>
+          <PrefTypography>（{desc.prefecture}）</PrefTypography>
         </Grid>
         <LinkTypography variant="caption" onClick={handleClick}>
           道の駅の概要を見る &gt;&gt;
         </LinkTypography>
         <MainContents>
-          <MainRichText
-            render={report.contents}
-            htmlSerializer={htmlSerializer}
-          />
+          <RichText render={report.contents} htmlSerializer={htmlSerializer} />
         </MainContents>
         <SubHeadTypography variant="h5" innerRef={descHeader}>
           - 概要 -
@@ -362,8 +298,12 @@ const ReportDetail: React.FC = () => {
               justify="flex-start"
               alignItems="center"
             >
-              <DescTd xs={2}>{row.title}</DescTd>
-              <DescTd xs={9}>{row.content}</DescTd>
+              <DescTd item xs={2}>
+                {row.title}
+              </DescTd>
+              <DescTd item xs={9}>
+                {row.content}
+              </DescTd>
             </DescTr>
           ))}
         </DescTable>
