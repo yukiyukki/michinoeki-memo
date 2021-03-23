@@ -3,13 +3,10 @@ import { Table, TableBody, TableRow, TableCell, Link } from '@material-ui/core';
 import NextLink from 'next/link';
 import dayjs from 'dayjs';
 import { Date as ParseDate } from 'prismic-reactjs';
-import { getRecentReports_allReports_edges } from '../Pages/IndexPage/__generated__/getRecentReports';
 import { getReports_allReports_edges } from '../Pages/ReportsPage/__generated__/getReports';
 
 interface Props {
-  reports:
-    | (getReports_allReports_edges | getRecentReports_allReports_edges)[]
-    | null;
+  reports: getReports_allReports_edges[] | null;
 }
 
 const ReportList: React.FC<Props> = ({ reports }) => {
