@@ -110,6 +110,7 @@ const IndexPage: React.FC<Props> = ({ recentReports }) => {
                 '千葉県',
                 '神奈川県',
                 '新潟県',
+                '富山県',
                 '山梨県',
                 '長野県',
                 '岐阜県',
