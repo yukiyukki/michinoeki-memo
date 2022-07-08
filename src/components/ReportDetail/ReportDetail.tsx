@@ -105,7 +105,7 @@ const htmlSerializer = (
       return (
         <ContentsImageArea
           container
-          justify="flex-start"
+          justifyContent="flex-start"
           alignItems="center"
           key={key}
         >
@@ -289,7 +289,7 @@ const ReportDetail: React.FC<Props> = ({ detail }) => {
         <MainContents>
           <RichText render={report.contents} htmlSerializer={htmlSerializer} />
         </MainContents>
-        <SubHeadTypography variant="h5" innerRef={descHeader}>
+        <SubHeadTypography variant="h5" ref={descHeader}>
           - 概要 -
         </SubHeadTypography>
         <DescTable>
@@ -298,7 +298,7 @@ const ReportDetail: React.FC<Props> = ({ detail }) => {
               key={index}
               container
               direction="row"
-              justify="flex-start"
+              justifyContent="flex-start"
               alignItems="center"
             >
               <DescTd item xs={2}>
