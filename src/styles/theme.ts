@@ -1,14 +1,16 @@
-import { createTheme, adaptV4Theme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
-export const theme = createTheme(
-  adaptV4Theme({
-    palette: {
-      primary: {
-        light: '#d7ffd9',
-        main: '#109a1d',
-        dark: '#75a478',
-        contrastText: '#000000',
-      },
+const MuiDefaultTheme = createTheme();
+
+export const theme = createTheme({
+  ...MuiDefaultTheme,
+  palette: {
+    ...MuiDefaultTheme.palette,
+    primary: {
+      light: '#d7ffd9',
+      main: '#109a1d',
+      dark: '#75a478',
+      contrastText: '#000000',
     },
-  }),
-);
+  },
+});
