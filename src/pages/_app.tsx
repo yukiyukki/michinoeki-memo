@@ -1,10 +1,13 @@
-import React from 'react';
-import NextApp, { AppProps } from 'next/app';
-import { AppStylesProvider } from '../styles/AppStylesProvider';
-import dayjs from 'dayjs';
 import 'dayjs/locale/ja';
-import * as gtag from '../gtag';
+
+import dayjs from 'dayjs';
+import NextApp, { AppProps } from 'next/app';
 import { Router } from 'next/router';
+import React from 'react';
+
+import * as gtag from '../gtag';
+import { AppStylesProvider } from '../styles/AppStylesProvider';
+import CssBaseline from '@mui/material/CssBaseline';
 
 type Props = AppProps;
 
@@ -20,6 +23,7 @@ class App extends NextApp {
 
     return (
       <AppStylesProvider>
+        <CssBaseline />
         <Component {...pageProps} />
       </AppStylesProvider>
     );
