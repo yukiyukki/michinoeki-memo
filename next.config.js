@@ -1,6 +1,12 @@
 const dotenv = require('dotenv');
 dotenv.config();
-module.exports = {
+
+const withTM = require('next-transpile-modules')([
+  '@mui/material',
+  '@mui/system',
+]);
+
+module.exports = withTM({
   env: {
     GQL_URI: process.env.GQL_URI,
     GA_TRACKING_ID: process.env.GA_TRACKING_ID,
@@ -10,4 +16,11 @@ module.exports = {
   images: {
     domains: ['images.prismic.io'],
   },
-};
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@mui/styled-engine': '@mui/styled-engine-sc',
+    };
+    return config;
+  }
+});

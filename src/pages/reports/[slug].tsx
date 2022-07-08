@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { InferGetStaticPropsType, NextPage } from 'next';
 import { ReportDetail } from '../../components/ReportDetail';
-import { Container } from '@material-ui/core';
+import { Container } from '@mui/material';
 import { Client } from '../../apiClients/prismicClient';
 import { useRouter } from 'next/router';
 

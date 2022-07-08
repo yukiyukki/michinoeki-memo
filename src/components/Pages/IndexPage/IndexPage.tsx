@@ -5,7 +5,7 @@ import {
   CircularProgress,
   Link,
   Grid,
-} from '@material-ui/core';
+} from '@mui/material';
 import NextLink from 'next/link';
 import styled from 'styled-components';
 import Image from 'next/image';
@@ -46,7 +46,7 @@ const IndexPage: React.FC<Props> = ({ recentReports }) => {
     return (
       <Grid
         container
-        justify="center"
+        justifyContent="center"
         alignItems="center"
         style={{ height: '100vh' }}
       >
@@ -99,7 +99,7 @@ const IndexPage: React.FC<Props> = ({ recentReports }) => {
               height={45}
               alt="地域で探す"
             />
-            <Grid container justify="flex-start">
+            <Grid container justifyContent="flex-start">
               {[
                 '山形県',
                 '福島県',

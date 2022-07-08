@@ -6,10 +6,10 @@ import {
   CircularProgress,
   Link,
   Grid,
-} from '@material-ui/core';
+} from '@mui/material';
 import NextLink from 'next/link';
 import { useEffect, useState } from 'react';
-import { styled } from '@material-ui/core/styles';
+import { styled } from '@mui/material/styles';
 import apiClient from '../../../apiClients/apiClient';
 import gql from 'graphql-tag';
 import { ApolloQueryResult } from 'apollo-client';
@@ -65,7 +65,7 @@ const ReportsPage: React.FC = () => {
     return (
       <Grid
         container
-        justify="center"
+        justifyContent="center"
         alignItems="center"
         style={{ height: '100vh' }}
       >

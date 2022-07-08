@@ -6,7 +6,7 @@ import {
   CircularProgress,
   Link,
   Grid,
-} from '@material-ui/core';
+} from '@mui/material';
 import NextLink from 'next/link';
 import styled from 'styled-components';
 import { RichText, Elements } from 'prismic-reactjs';
@@ -135,7 +135,7 @@ const ReportDetail: React.FC<Props> = ({ detail }) => {
     return (
       <Grid
         container
-        justify="center"
+        justifyContent="center"
         alignItems="center"
         style={{ height: '100vh' }}
       >
@@ -255,7 +255,7 @@ const ReportDetail: React.FC<Props> = ({ detail }) => {
         <Grid
           container
           direction="row"
-          justify="flex-start"
+          justifyContent="flex-start"
           alignItems="baseline"
         >
           <BreadCrumb variant="body1">
@@ -275,7 +275,7 @@ const ReportDetail: React.FC<Props> = ({ detail }) => {
         <Grid
           container
           direction="row"
-          justify="flex-start"
+          justifyContent="flex-start"
           alignItems="baseline"
         >
           <HeadTypography variant="h3" align="left">

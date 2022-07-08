@@ -19,7 +19,8 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "moduleResolution": "node",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "incremental": true
   },
   "exclude": [
     "node_modules",

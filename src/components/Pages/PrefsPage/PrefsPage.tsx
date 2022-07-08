@@ -6,11 +6,11 @@ import {
   CircularProgress,
   Link,
   Grid,
-} from '@material-ui/core';
+} from '@mui/material';
 import NextLink from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { styled } from '@material-ui/core/styles';
+import { styled } from '@mui/material/styles';
 import { Client } from '../../../apiClients/prismicClient';
 import Prismic from 'prismic-javascript';
 import ApiSearchResponse from 'prismic-javascript/types/ApiSearchResponse';
@@ -57,7 +57,7 @@ const PrefsPage: React.FC = () => {
     return (
       <Grid
         container
-        justify="center"
+        justifyContent="center"
         alignItems="center"
         style={{ height: '100vh' }}
       >
