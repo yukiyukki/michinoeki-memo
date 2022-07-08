@@ -1,18 +1,15 @@
 import * as React from 'react';
 import { theme } from './theme';
-import {
-  ThemeProvider,
-  Theme,
-  StyledEngineProvider,
-} from '@mui/material/styles';
-import StylesProvider from '@mui/styles/StylesProvider';
+import { ThemeProvider as SCThemeProvider } from 'styled-components';
+import { StyledEngineProvider } from '@mui/styled-engine-sc';
+import { ThemeProvider as MuiThemeProvider } from '@mui/styles';
 
 const AppStylesProvider: React.FC = ({ children }) => (
-  <StylesProvider injectFirst>
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </StyledEngineProvider>
-  </StylesProvider>
+  <StyledEngineProvider injectFirst>
+    <SCThemeProvider theme={theme}>
+      <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
+    </SCThemeProvider>
+  </StyledEngineProvider>
 );
 
 export { AppStylesProvider };
